@@ -3,7 +3,13 @@ import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react
 
 const PdfViewerPage = () => {
   const router = useRouter();
-  const pdfData = JSON.parse(router.query.pdfData);
+  let pdfData = {};
+
+  try {
+    pdfData = JSON.parse(router.query.pdfData || '{}');
+  } catch (error) {
+    console.error('Error parsing PDF data:', error);
+  }
 
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
