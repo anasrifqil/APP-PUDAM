@@ -100,12 +100,6 @@ export default function ListBarang() {
             console.log({ message: error.message });
         }
     }
-    function handleDetailButtonClick(dt) {
-        router.push({
-            pathname: '/pdfViewer',
-            query: { pdfData: JSON.stringify(dt) },
-        });
-    }
     const tableRef = useRef(null);
     const { onDownload } = useDownloadExcel({
         currentTableRef: tableRef.current,
@@ -222,14 +216,32 @@ export default function ListBarang() {
                                         </button>
                                     </td>
                                     <td>
-                                        <button
-                                            style={{ color: "black" }}
-                                            className="status pending"
-                                            onClick={() => handleDetailButtonClick(dt)}
-                                        >
-                                            <span className='aksi'><ion-icon name="print-outline"></ion-icon></span>
+                                        <button className="status pending">
+                                            <Link
+                                                title='EDIT'
+                                                style={{ textDecoration: "none" , color: "black"  }}
+                                                href={{
+                                                    pathname: '/pdfViewer',
+                                                    query: {
+                                                        id: dt.id,
+                                                        tanggal: dt.tanggal,
+                                                        kodebarang: dt.kodebarang,
+                                                        namabarang: dt.namabarang,
+                                                        kuantiti: dt.kuantiti,
+                                                        satuan: dt.satuan,
+                                                        peminjam: dt.peminjam,
+                                                        NomerSP: dt.NomerSP,
+                                                        alamat: dt.alamat,
+                                                        keterangan: dt.keterangan,
+                                                        gambarbarang: dt.gambarbarang,
+                                                    }
+                                                }}
+                                            >
+                                                <span title='PRINT' className='aksi'><ion-icon name="print-outline"/></span>
+                                            </Link>
                                         </button>
                                     </td>
+                                    
                                     <td>
                                         <button className="status inProgress" style={{ textDecoration: "none" }}>
                                             <Link
@@ -286,4 +298,6 @@ export default function ListBarang() {
         </>
     );
 }
+
+
 
